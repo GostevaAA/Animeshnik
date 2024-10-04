@@ -1,3 +1,5 @@
+import 'package:animeshnik/data/models/player.dart';
+
 class Title {
   final int id;
   final String code;
@@ -5,12 +7,12 @@ class Title {
   final List<String> genres;
   final PostersList posters;
   final String description;
-  //final Player player;
+  final Player player;
   final Type type;
   final int updated;
 
   Title(this.id, this.code, this.names, this.genres, this.posters,
-      this.description, this.type, this.updated);
+      this.description, this.player, this.type, this.updated);
 
   Title.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int,
@@ -20,6 +22,7 @@ class Title {
             (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
         posters = PostersList.fromJson(json['posters'] as Map<String, dynamic>),
         description = json['description'] as String,
+        player = Player.fromJson(json['player'] as Map<String, dynamic>),
         type = Type.fromJson(json['type'] as Map<String, dynamic>),
         updated = json['updated'] as int;
 }

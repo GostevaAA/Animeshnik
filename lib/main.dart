@@ -1,4 +1,4 @@
-import 'package:animeshnik/title_updates_screen.dart';
+import 'package:animeshnik/presentation/title_updates/title_updates_screen.dart';
 import 'package:animeshnik/ui/app_theme.dart';
 import 'package:flutter/material.dart';
 

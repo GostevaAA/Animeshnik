@@ -1,8 +1,10 @@
-import 'package:animeshnik/title_updates_screen.dart';
+import 'package:animeshnik/presentation/title_updates/title_updates_ui_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class TitleScreen extends StatelessWidget {
-  const TitleScreen({super.key, required this.titleUiModel});
+class TitleCard extends StatelessWidget {
+  const TitleCard({super.key, required this.titleUiModel});
 
   final TitleUiModel titleUiModel;
 
@@ -16,10 +18,16 @@ class TitleScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            titleUiModel.title.posters.small.fullUrl,
-            width: 130,
+          CachedNetworkImage(
+            imageUrl: titleUiModel.title.posters.small.fullUrl,
             height: 186,
+            width: 130,
+            placeholder: (context, url) => SvgPicture.asset(
+              'assets/icons/A.svg',
+              height: 50,
+              width: 50,
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           Expanded(
             child: Padding(
@@ -38,7 +46,7 @@ class TitleScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Эпизоды: ... из ${titleUiModel.title.type.episodes ?? 0}",
+                    "Эпизоды: ${titleUiModel.title.player.episodes.last} из ${titleUiModel.title.type.episodes ?? 0}",
                     style: theme.textTheme.labelMedium,
                   ),
                 ],

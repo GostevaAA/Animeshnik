@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   dio: 5.7.0
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +21,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
