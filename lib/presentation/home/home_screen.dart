@@ -1,8 +1,8 @@
 import 'package:animeshnik/presentation/profile/profile_screen.dart';
 import 'package:animeshnik/presentation/search/search_screen.dart';
 import 'package:animeshnik/presentation/title_updates/title_updates_screen.dart';
+import 'package:animeshnik/ui/widgets/svg_item_themed.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,34 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: _onItemTapped,
         selectedIndex: _selectedIndex,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: <Widget>[
           NavigationDestination(
-              icon: SvgPicture.asset(
-                'assets/icons/A.svg',
-                height: 24,
-                width: 24,
-                colorFilter:
-                    ColorFilter.mode(theme.primaryColor, BlendMode.srcIn),
-              ),
-              label: 'Главная'),
-          NavigationDestination(
-              icon: SvgPicture.asset(
-                'assets/icons/Search.svg',
-                height: 24,
-                width: 24,
-                colorFilter:
-                    ColorFilter.mode(theme.primaryColor, BlendMode.srcIn),
-              ),
-              label: 'Поиск'),
-          NavigationDestination(
-              icon: SvgPicture.asset(
-                'assets/icons/Profile.svg',
-                height: 24,
-                width: 24,
-                colorFilter:
-                    ColorFilter.mode(theme.primaryColor, BlendMode.srcIn),
-              ),
-              label: 'Профиль'),
+              icon: SvgIconThemed('assets/icons/A.svg'), label: 'Главная'),
+          NavigationDestination(icon: Icon(Icons.search), label: 'Поиск'),
+          NavigationDestination(icon: Icon(Icons.person), label: 'Профиль'),
         ],
       ),
     );
