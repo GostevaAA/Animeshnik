@@ -14,7 +14,8 @@ class TitleUpdatesScreen extends StatefulWidget {
   State<TitleUpdatesScreen> createState() => _TitleUpdatesScreenState();
 }
 
-class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> {
+class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
+    with AutomaticKeepAliveClientMixin {
   ScrollController _scrollController = ScrollController();
 
   List<Title> _titles = [];
@@ -24,6 +25,9 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> {
   bool _isLoading = false;
   bool _isAllPagesLoaded = false;
   late final AnlibriaService _anilibriaService;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {

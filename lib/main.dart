@@ -1,4 +1,4 @@
-import 'package:animeshnik/presentation/title_updates/title_updates_screen.dart';
+import 'package:animeshnik/presentation/home/home_screen.dart';
 import 'package:animeshnik/ui/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +12,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // theme: ThemeData(
-        //   colorScheme: ColorScheme.fromSeed(
-        //       seedColor: const Color(0xFFFED900), brightness: Brightness.dark),
-        //   useMaterial3: true,
-        // ),
         theme: AppTheme.light(),
         darkTheme: AppTheme.dark(),
-        home: const TitleUpdatesScreen());
+        home: const HomeScreen());
+    //home: const TitleUpdatesScreen());
   }
 }
