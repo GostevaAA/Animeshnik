@@ -1,0 +1,12 @@
+{
+    "dart.lineLength": 120,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        // Recomended by https://github.com/dart-lang/build/blob/master/docs/windows_faq.md
+        "**/.dart_tool": true
+    }
+}

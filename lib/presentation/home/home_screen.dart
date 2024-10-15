@@ -32,21 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       body: PageView(
         controller: _pageController,
         onPageChanged: _onItemTapped,
+        physics: const NeverScrollableScrollPhysics(),
         children: _pages,
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: _onItemTapped,
         selectedIndex: _selectedIndex,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: <Widget>[
-          NavigationDestination(
-              icon: SvgIconThemed('assets/icons/A.svg'), label: 'Главная'),
+        destinations: const <Widget>[
+          NavigationDestination(icon: SvgIconThemed('assets/icons/A.svg'), label: 'Главная'),
           NavigationDestination(icon: Icon(Icons.search), label: 'Поиск'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Профиль'),
         ],

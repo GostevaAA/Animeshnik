@@ -27,7 +27,7 @@ class TitleCard extends StatelessWidget {
               height: 50,
               width: 50,
             ),
-            errorWidget: (context, url, error) => Icon(Icons.error),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
           Expanded(
             child: Padding(
@@ -35,16 +35,15 @@ class TitleCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(titleUiModel.title.names.ru,
-                      style: theme.textTheme.titleMedium),
-                  SizedBox(height: 8),
+                  Text(titleUiModel.title.names.ru, style: theme.textTheme.titleMedium),
+                  const SizedBox(height: 8),
                   Text(
                     titleUiModel.title.description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.bodyMedium,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "Эпизоды: ${titleUiModel.title.player.episodes.last} из ${titleUiModel.title.type.episodes ?? 0}",
                     style: theme.textTheme.labelMedium,

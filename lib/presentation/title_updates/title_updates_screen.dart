@@ -14,14 +14,13 @@ class TitleUpdatesScreen extends StatefulWidget {
   State<TitleUpdatesScreen> createState() => _TitleUpdatesScreenState();
 }
 
-class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
-    with AutomaticKeepAliveClientMixin {
-  ScrollController _scrollController = ScrollController();
+class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> with AutomaticKeepAliveClientMixin {
+  final ScrollController _scrollController = ScrollController();
 
   List<Title> _titles = [];
   List<TitleUpdatesUiModel> _titleUpdatesUiModel = [];
   int _currentPage = 1;
-  int _itemsPerPage = 10;
+  final int _itemsPerPage = 10;
   bool _isLoading = false;
   bool _isAllPagesLoaded = false;
   late final AnlibriaService _anilibriaService;
@@ -36,9 +35,9 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
     dio.interceptors.add(LogInterceptor(responseBody: false));
     _anilibriaService = AnlibriaService(dio);
 
-    _load_title_updates();
+    loadTitleUpdates();
 
-    _scrollController.addListener(_load_next_page);
+    _scrollController.addListener(loadNextPage);
   }
 
   @override
@@ -48,17 +47,18 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
   }
 
   HeaderDate formatDateToHeaderDateType(int localUpdatedAt) {
-    if (localUpdatedAt == DateTime.now().day)
+    if (localUpdatedAt == DateTime.now().day) {
       return HeaderDate.today;
-    else if (DateTime.now().day - localUpdatedAt == 1)
+    } else if (DateTime.now().day - localUpdatedAt == 1) {
       return HeaderDate.yesterday;
-    else
+    } else {
       return HeaderDate.other;
+    }
   }
 
-  List<TitleUpdatesUiModel> _to_ui_model(List<Title> titles) {
+  List<TitleUpdatesUiModel> toUiModel(List<Title> titles) {
     List<TitleUpdatesUiModel> titleUpdatesUiModel = [];
-    int? prevDate = null;
+    int? prevDate;
     HeaderDate prevHeader = HeaderDate.today;
 
     for (var title in titles) {
@@ -77,16 +77,15 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
     return titleUpdatesUiModel;
   }
 
-  void _load_title_updates() async {
+  void loadTitleUpdates() async {
     setState(() {
       _isLoading = true;
     });
 
-    TitleUpdates titleUpdates =
-        await _anilibriaService.getTitleUpdates(1, _itemsPerPage);
+    TitleUpdates titleUpdates = await _anilibriaService.getTitleUpdates(1, _itemsPerPage);
     List<Title> titles = titleUpdates.list;
 
-    List<TitleUpdatesUiModel> titleUpdatesUiModel = _to_ui_model(titles);
+    List<TitleUpdatesUiModel> titleUpdatesUiModel = toUiModel(titles);
 
     setState(() {
       _titles = titles;
@@ -95,28 +94,25 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
     });
   }
 
-  void _load_next_page() async {
+  void loadNextPage() async {
     if (_isAllPagesLoaded) return;
 
     bool isAllPagesLoaded = false;
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
       int currentPage = _currentPage + 1;
 
       setState(() {
         _isLoading = true;
       });
 
-      TitleUpdates titleUpdates =
-          await _anilibriaService.getTitleUpdates(currentPage, _itemsPerPage);
+      TitleUpdates titleUpdates = await _anilibriaService.getTitleUpdates(currentPage, _itemsPerPage);
 
       List<Title> titles = _titles;
       titles.addAll(titleUpdates.list);
 
-      List<TitleUpdatesUiModel> titleUpdatesUiModel = _to_ui_model(titles);
+      List<TitleUpdatesUiModel> titleUpdatesUiModel = toUiModel(titles);
 
-      if (titleUpdates.pagination.currentPage == titleUpdates.pagination.pages)
-        isAllPagesLoaded = true;
+      if (titleUpdates.pagination.currentPage == titleUpdates.pagination.pages) isAllPagesLoaded = true;
 
       setState(() {
         _titles = titles;
@@ -130,6 +126,7 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -139,7 +136,7 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
               controller: _scrollController,
               itemBuilder: (BuildContext context, int index) {
                 if (index == _titleUpdatesUiModel.length && _isLoading) {
-                  return Center(child: const CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (index != _titleUpdatesUiModel.length) {
                   final item = _titleUpdatesUiModel[index];
@@ -158,6 +155,7 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen>
                       ),
                   };
                 }
+                return null;
               },
               itemCount: _titleUpdatesUiModel.length + 1,
             ),
