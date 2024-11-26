@@ -10,7 +10,7 @@ class EpisodeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Card(
+    return Card.filled(
       child: Padding(
         padding: const EdgeInsets.only(left: 16, top: 8, right: 16, bottom: 8),
         child: Text(

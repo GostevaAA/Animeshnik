@@ -15,12 +15,16 @@ class TitleDetailsScreen extends StatelessWidget {
     final reversedEpisodesList = titleUiModel.title.player.list.reversed.toList();
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: Stack(
         children: [
           CachedNetworkImage(
             imageUrl: titleUiModel.title.posters.medium.fullUrl,
             imageBuilder: (context, imageProvider) => Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.sizeOf(context).height * 0.6,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   alignment: Alignment.topCenter,
@@ -36,109 +40,69 @@ class TitleDetailsScreen extends StatelessWidget {
             ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.5,
-            minChildSize: 0.5,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-                  color: theme.cardColor,
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: titleUiModel.title.player.list.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == 0) {
-                      return Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              titleUiModel.title.names.ru,
-                              style: theme.textTheme.titleLarge,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              titleUiModel.title.names.en,
-                              style: theme.textTheme.titleSmall,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              RichText(
-                                  text: TextSpan(style: theme.textTheme.labelSmall, children: [
-                                const TextSpan(text: 'Обновлён '),
-                                TextSpan(text: titleUiModel.getUpdatedFromNow()),
-                                const TextSpan(text: ' назад,')
-                              ])),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              RichText(
-                                  text: TextSpan(style: theme.textTheme.bodyMedium, children: [
-                                const TextSpan(text: 'Сезон: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: titleUiModel.title.season.string),
-                              ]))
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              RichText(
-                                  text: TextSpan(style: theme.textTheme.bodyMedium, children: [
-                                const TextSpan(text: 'Тип: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: titleUiModel.title.type.fullString ?? ''),
-                              ]))
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              Flexible(
-                                child: RichText(
-                                    text: TextSpan(style: theme.textTheme.bodyMedium, children: [
-                                  const TextSpan(text: 'Жанры: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                  TextSpan(text: titleUiModel.getGenres()),
-                                ])),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              RichText(
-                                  text: TextSpan(style: theme.textTheme.bodyMedium, children: [
-                                const TextSpan(text: 'Состояние: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(
-                                  text: titleUiModel.title.status.string,
-                                ),
-                              ]))
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(titleUiModel.title.description, style: theme.textTheme.bodyMedium),
-                          const SizedBox(height: 16),
-                        ],
-                      );
-                    } else {
-                      return EpisodeCard(episode: reversedEpisodesList[index - 1]);
-                    }
-                  },
-                ),
-              );
-            },
-          ),
         ],
+      ),
+      bottomSheet: DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.5,
+        minChildSize: 0.5,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return ListView(padding: const EdgeInsets.all(16), controller: scrollController, children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                Text(
+                  titleUiModel.title.names.ru,
+                  style: theme.textTheme.titleLarge,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  titleUiModel.title.names.en,
+                  style: theme.textTheme.titleSmall,
+                ),
+                const SizedBox(height: 4),
+                RichText(
+                    text: TextSpan(style: theme.textTheme.labelSmall, children: [
+                  const TextSpan(text: 'Обновлён '),
+                  TextSpan(text: titleUiModel.getUpdatedFromNow()),
+                  const TextSpan(text: ' назад,')
+                ])),
+                const SizedBox(height: 16),
+                RichText(
+                    text: TextSpan(style: theme.textTheme.bodyMedium, children: [
+                  const TextSpan(text: 'Сезон: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: titleUiModel.title.season.string),
+                ])),
+                const SizedBox(height: 4),
+                RichText(
+                    text: TextSpan(style: theme.textTheme.bodyMedium, children: [
+                  const TextSpan(text: 'Тип: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: titleUiModel.title.type.fullString ?? ''),
+                ])),
+                const SizedBox(height: 4),
+                RichText(
+                    text: TextSpan(style: theme.textTheme.bodyMedium, children: [
+                  const TextSpan(text: 'Жанры: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(text: titleUiModel.getGenres()),
+                ])),
+                const SizedBox(height: 4),
+                RichText(
+                    text: TextSpan(style: theme.textTheme.bodyMedium, children: [
+                  const TextSpan(text: 'Состояние: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: titleUiModel.title.status.string,
+                  ),
+                ])),
+                const SizedBox(height: 16),
+                Text(titleUiModel.title.description, style: theme.textTheme.bodyMedium),
+                const SizedBox(height: 16),
+              ],
+            ),
+            for (var i = titleUiModel.title.player.list.length - 1; i >= 0; i--)
+              EpisodeCard(episode: reversedEpisodesList[i])
+          ]);
+        },
       ),
     );
   }

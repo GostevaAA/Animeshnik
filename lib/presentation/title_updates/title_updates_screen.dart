@@ -153,9 +153,9 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> with AutomaticK
                 if (index != _titleUpdatesUiModel.length) {
                   final item = _titleUpdatesUiModel[index];
                   return switch (item) {
-                    TitleUiModel() => GestureDetector(
+                    TitleUiModel() => TitleCard(
+                        titleUiModel: item,
                         onTap: () => onTitleTap(index),
-                        child: TitleCard(titleUiModel: item),
                       ),
                     Header() => Padding(
                         padding: const EdgeInsets.all(8.0),
