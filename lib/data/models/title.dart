@@ -10,21 +10,24 @@ class Title {
   final Player player;
   final Type type;
   final int updated;
+  final Status status;
+  final Season season;
 
-  Title(this.id, this.code, this.names, this.genres, this.posters,
-      this.description, this.player, this.type, this.updated);
+  Title(this.id, this.code, this.names, this.genres, this.posters, this.description, this.player, this.type,
+      this.updated, this.status, this.season);
 
   Title.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int,
         code = json['code'] as String,
         names = Names.fromJson(json['names'] as Map<String, dynamic>),
-        genres =
-            (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
+        genres = (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
         posters = PostersList.fromJson(json['posters'] as Map<String, dynamic>),
         description = json['description'] as String,
         player = Player.fromJson(json['player'] as Map<String, dynamic>),
         type = Type.fromJson(json['type'] as Map<String, dynamic>),
-        updated = json['updated'] as int;
+        updated = json['updated'] as int,
+        status = Status.fromJson(json['status'] as Map<String, dynamic>),
+        season = Season.fromJson(json['season'] as Map<String, dynamic>);
 }
 
 class Names {
@@ -81,4 +84,30 @@ class Type {
         episodes = json['episodes'] as int?,
         length = json['length'] as int?,
         code = json['code'] as int?;
+}
+
+class Status {
+  final String string;
+  final int code;
+
+  Status(this.string, this.code);
+
+  Status.fromJson(Map<String, dynamic> json)
+      : string = json['string'] as String,
+        code = json['code'] as int;
+}
+
+class Season {
+  final int year;
+  final int weekDay;
+  final String string;
+  final int code;
+
+  Season(this.year, this.weekDay, this.string, this.code);
+
+  Season.fromJson(Map<String, dynamic> json)
+      : year = json['year'] as int,
+        weekDay = json['week_day'] as int,
+        string = json['string'] as String,
+        code = json['code'] as int;
 }

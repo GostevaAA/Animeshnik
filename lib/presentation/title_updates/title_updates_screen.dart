@@ -1,5 +1,6 @@
 import 'package:animeshnik/data/models/title_updates.dart';
 import 'package:animeshnik/data/network/anlibria_service.dart';
+import 'package:animeshnik/presentation/title_details/title_details_screen.dart';
 import 'package:animeshnik/presentation/title_updates/title_card.dart';
 import 'package:animeshnik/presentation/title_updates/title_updates_ui_model.dart';
 import 'package:dio/dio.dart';
@@ -124,6 +125,17 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> with AutomaticK
     }
   }
 
+  void onTitleTap(int index) {
+    openTitleDetails(index);
+  }
+
+  Future<void> openTitleDetails(int index) async {
+    TitleUiModel titleUpdate = _titleUpdatesUiModel[index] as TitleUiModel;
+    await Navigator.of(context).push(MaterialPageRoute(
+      builder: (BuildContext context) => TitleDetailsScreen(titleUiModel: titleUpdate),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -141,7 +153,10 @@ class _TitleUpdatesScreenState extends State<TitleUpdatesScreen> with AutomaticK
                 if (index != _titleUpdatesUiModel.length) {
                   final item = _titleUpdatesUiModel[index];
                   return switch (item) {
-                    TitleUiModel() => TitleCard(titleUiModel: item),
+                    TitleUiModel() => GestureDetector(
+                        onTap: () => onTitleTap(index),
+                        child: TitleCard(titleUiModel: item),
+                      ),
                     Header() => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
