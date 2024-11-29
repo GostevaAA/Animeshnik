@@ -7,8 +7,7 @@ class Player {
   Player.fromJson(Map<String, dynamic> json)
       : list = (json['list'] as Map<String, dynamic>)
             .entries
-            .map((entry) =>
-                Episode.fromJson(entry.value as Map<String, dynamic>))
+            .map((entry) => Episode.fromJson(entry.value as Map<String, dynamic>))
             .toList(),
         episodes = Episodes.fromJson(json['episodes'] as Map<String, dynamic>);
 }
@@ -17,12 +16,10 @@ class Episode {
   final int episode; //Номер серии
   final String? name; //Имя серии
   final String uuid; //Уникальный идентификатор серии
-  final int
-      createdTimestamp; //Время создания/изменения плейлиста в формате unix timestamp
+  final int createdTimestamp; //Время создания/изменения плейлиста в формате unix timestamp
   final String? preview; //Ссылка без домена на превью серии
 
-  Episode(
-      this.episode, this.name, this.uuid, this.createdTimestamp, this.preview);
+  Episode(this.episode, this.name, this.uuid, this.createdTimestamp, this.preview);
 
   Episode.fromJson(Map<String, dynamic> json)
       : episode = (json['episode'] as num).toInt(),
