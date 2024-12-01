@@ -100,7 +100,10 @@ class TitleDetailsScreen extends StatelessWidget {
               ],
             ),
             for (var i = titleUiModel.title.player.list.length - 1; i >= 0; i--)
-              EpisodeCard(episode: reversedEpisodesList[i])
+              EpisodeCard(
+                episode: reversedEpisodesList[i],
+                host: titleUiModel.title.player.host,
+              )
           ]);
         },
       ),

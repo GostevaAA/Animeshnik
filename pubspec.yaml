@@ -13,6 +13,7 @@ dependencies:
   dio: 5.7.0
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.4.1
+  video_player_control_panel: ^1.1.2
 
 dev_dependencies:
   flutter_test:
