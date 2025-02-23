@@ -41,8 +41,8 @@ class _EpisodePlayerState extends State<EpisodePlayer> {
     if (!kIsWeb && Platform.isWindows) WindowsVideoPlayer.registerWith();
     _controller = VideoPlayerController.networkUrl(
         //Uri.parse('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'));
-        Uri.parse('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'));
-    //Uri.parse(url));
+        //Uri.parse('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'));
+        Uri.parse(url));
 
     _controller.initialize().then((value) {
       if (_controller.value.isInitialized) {

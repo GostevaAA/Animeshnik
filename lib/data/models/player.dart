@@ -55,14 +55,14 @@ class Episodes {
 }
 
 class Hls {
-  final String fhd;
-  final String hd;
-  final String sd;
+  final String? fhd;
+  final String? hd;
+  final String? sd;
 
   Hls(this.fhd, this.hd, this.sd);
 
   Hls.fromJson(Map<String, dynamic> json)
-      : fhd = json['fhd'] as String,
+      : fhd = json['fhd'] != null ? json['fhd'] as String : null,
         hd = json['hd'] as String,
-        sd = json['fhd'] as String;
+        sd = json['sd'] as String;
 }
